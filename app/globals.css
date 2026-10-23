@@ -1,8 +1,105 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root {
+  /* Brand */
+  --brand: #635bff;
+  --brand-hover: #5145e5;
+  --brand-subtle: #eeedff;
+
+  /* Surfaces and text */
+  --background: #f8fafc;
+  --text-primary: #172033;
+  --text-secondary: #64748b;
+  --border: #e2e8f0;
+  --card: #ffffff;
+
+  /* Success */
+  --success: #16a34a;
+  --success-background: #ecfdf3;
+
+  /* Warning */
+  --warning: #d97706;
+  --warning-background: #fff7e6;
+
+  /* Danger */
+  --danger: #dc2626;
+  --danger-background: #fef2f2;
+
+  /* Info */
+  --info: #2563eb;
+  --info-background: #eff6ff;
+
+  /* Shadows */
+  --shadow-brand: 0 6px 18px -8px rgb(99 91 255 / 0.65);
+}
+
+.dark {
+  --brand: #8b83ff;
+  --brand-hover: #a19bff;
+  --brand-subtle: #29264f;
+
+  --background: #0f121b;
+  --text-primary: #f1f5f9;
+  --text-secondary: #94a3b8;
+  --border: #2b3242;
+  --card: #171b27;
+
+  --success: #4ade80;
+  --success-background: #123522;
+
+  --warning: #fbbf24;
+  --warning-background: #3b2a10;
+
+  --danger: #f87171;
+  --danger-background: #3b181d;
+
+  --info: #60a5fa;
+  --info-background: #172554;
+
+  --shadow-brand: 0 6px 18px -8px rgb(139 131 255 / 0.5);
+}
+
 @theme inline {
-  /* --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono); */
+  --font-inter: var(--font-inter);
+  --font-montserrat: var(--font-montserrat);
+
+  --color-brand: var(--brand);
+  --color-brand-hover: var(--brand-hover);
+  --color-brand-subtle: var(--brand-subtle);
+
+  --color-background: var(--background);
+  --color-text-primary: var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+  --color-border: var(--border);
+  --color-card: var(--card);
+
+  --color-success: var(--success);
+  --color-success-background: var(--success-background);
+
+  --color-warning: var(--warning);
+  --color-warning-background: var(--warning-background);
+
+  --color-danger: var(--danger);
+  --color-danger-background: var(--danger-background);
+
+  --color-info: var(--info);
+  --color-info-background: var(--info-background);
+
+  --shadow-brand: var(--shadow-brand);
+}
+
+button {
+  cursor: pointer;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
 }
