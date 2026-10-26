@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, Montserrat } from "next/font/google";
 import "./globals.css";
+import { TanStackProvider } from "@/lib/providers/tanstack-provider";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -24,7 +25,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       className={`${inter.variable} ${montserrat.variable} h-full antialiased`}
     >
       <body className="font-inter text-text-secondary bg-background flex min-h-full">
-        {children}
+        <TanStackProvider>{children}</TanStackProvider>
       </body>
     </html>
   );
