@@ -1,8 +1,7 @@
-import { ButtonLink } from "@/components/ButtonLink";
 import PageHeader from "@/components/PageHeader";
+import AddNewClientBtn from "@/features/clients/components/AddNewClientBtn";
 import ClientsStats from "@/features/clients/components/ClientsStats";
 import ClientsTable from "@/features/clients/components/ClientsTable";
-import { PlusCircle } from "lucide-react";
 
 function page() {
   return (
@@ -10,12 +9,7 @@ function page() {
       <PageHeader
         title="Clients"
         description="Good relationships start with a little organization."
-        actions={
-          <ButtonLink>
-            <PlusCircle />
-            <span>Add client</span>
-          </ButtonLink>
-        }
+        actions={<AddNewClientBtn />}
       />
 
       <ClientsStats />

@@ -1,0 +1,110 @@
+"use client";
+
+import { ButtonLink } from "@/components/ButtonLink";
+import InputField from "@/components/InputField";
+import Modal from "@/components/Modal";
+import TextareaField from "@/components/TextareaField";
+import { useUpdateClient } from "../hooks/useUpdateClient";
+import { useForm } from "react-hook-form";
+
+function EditClient() {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({});
+
+  const { isPending } = useUpdateClient();
+  return (
+    <Modal
+      isOpen={isOpen}
+      onClose={handleClose}
+      title="New Client"
+      description="Add the details below to get started."
+      maxWidth="lg"
+    >
+      <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+        <InputField
+          label="Client name"
+          required
+          disabled={isPending}
+          placeholder="e.g. Olivia Martin"
+          error={errors.name?.message}
+          {...register("name")}
+        />
+
+        <InputField
+          label="Company name"
+          disabled={isPending}
+          placeholder="e.g. Northstar Studio"
+          error={errors.company?.message}
+          {...register("company")}
+        />
+
+        <InputField
+          label="Email address"
+          required
+          type="email"
+          disabled={isPending}
+          placeholder="name@company.com"
+          error={errors.email?.message}
+          {...register("email")}
+        />
+
+        <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
+          <InputField
+            label="Industry"
+            type="text"
+            disabled={isPending}
+            placeholder="e.g. Technology"
+            error={errors.industry?.message}
+            {...register("industry")}
+          />
+
+          <InputField
+            label="Phone number"
+            type="tel"
+            disabled={isPending}
+            placeholder="+1 (555) 000-0000"
+            error={errors.phone?.message}
+            {...register("phone")}
+          />
+        </div>
+
+        <TextareaField
+          label="Notes"
+          disabled={isPending}
+          placeholder="Add any helpful context about this client..."
+          rows={3}
+          error={errors.notes?.message}
+          {...register("notes")}
+        />
+
+        <div className="flex items-center justify-end gap-3 pt-3">
+          <ButtonLink
+            variant="secondary"
+            type="button"
+            onClick={handleClose}
+            className="h-9 px-4 text-sm font-medium"
+          >
+            Cancel
+          </ButtonLink>
+          <ButtonLink
+            variant="primary"
+            type="submit"
+            disabled={isPending}
+            className="h-9 px-4 text-sm font-medium"
+          >
+            {isPending ? (
+              <Loader2 className="size-4 animate-spin" />
+            ) : (
+              "Create Client"
+            )}
+          </ButtonLink>
+        </div>
+      </form>
+    </Modal>
+  );
+}
+
+export default EditClient;

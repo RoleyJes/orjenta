@@ -1,6 +1,5 @@
-import { redirect } from "next/navigation";
-import { createClient } from "@/lib/supabase/server";
 import LogoutButton from "@/components/logout-button";
+import { getCurrentUser } from "@/lib/auth/getCurrentUser";
 import { connection } from "next/server";
 
 export const instant = false;
@@ -8,19 +7,9 @@ export const instant = false;
 export default async function DashboardPage() {
   await connection();
 
-  const supabase = await createClient();
-
-  // const { data, error } = await supabase.auth.getClaims();
-
-  // if (error || !data?.claims) {
-  //   redirect("/login");
-  // }
-
-  const {
-    data: { user: userData },
-  } = await supabase.auth.getUser();
-
-  const firstName = userData?.user_metadata.full_name.split(" ")[0] || "USER";
+  const user = await getCurrentUser();
+  const fullName = user?.fullName;
+  const firstName = fullName?.split(" ")[0] || "User";
 
   return (
     <main className="min-h-screen p-6 sm:p-10">
