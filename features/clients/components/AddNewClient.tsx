@@ -41,6 +41,7 @@ export default function AddNewClient({
 
   const { addClient, isPending } = useAddNewClient();
   const { user } = useAuthUser();
+  console.log(user);
 
   const onSubmit = (data: ClientFormData) => {
     if (user) {

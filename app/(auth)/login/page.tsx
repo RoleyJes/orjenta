@@ -4,15 +4,14 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { supabase } from "@/lib/supabase/client";
 import Link from "next/link";
-import Image from "next/image";
 
-import logo from "@/public/logo_light_full.png";
+import { routes } from "@/config/routes";
 
 export default function LoginPage() {
   const router = useRouter();
 
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [password, setPassword] = useState("11111111");
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
 
@@ -31,7 +30,7 @@ export default function LoginPage() {
         throw error;
       }
 
-      router.replace("/dashboard");
+      router.replace(routes.dashboard);
       router.refresh();
     } catch (error) {
       setMessage(
@@ -41,6 +40,8 @@ export default function LoginPage() {
       );
     } finally {
       setLoading(false);
+      setEmail("");
+      setPassword("11111111");
     }
   }
 

@@ -1,14 +1,35 @@
 "use client";
 
 import CustomInput from "@/components/CustomInput";
-import { Delete, Edit, PenLine, Search, Trash } from "lucide-react";
+import { ArrowLeft, ArrowRight, PenLine, Search, Trash } from "lucide-react";
 import { useGetClients } from "../hooks/useGetClients";
 import ClientsTableSkeleton from "./ClientsTableSkeleton";
 import StatusBadge from "./StatusBadge";
 import { ButtonLink } from "@/components/ButtonLink";
+import { useState } from "react";
+import { useAuthUser } from "@/components/providers/authProvider";
 
 function ClientsTable() {
-  const { clients, isPending, error } = useGetClients();
+  const [page, setPage] = useState(1);
+  const pageSize = 10;
+
+  const { user } = useAuthUser();
+  const { data, isPending, error, isPlaceholderData } = useGetClients({
+    page,
+    pageSize,
+    userId: user?.id,
+  });
+
+  const from = (page - 1) * pageSize + 1;
+  const to = Math.min(page * pageSize, data?.totalCount ?? 0);
+
+  function handlePrev() {
+    setPage((prev) => prev - 1);
+  }
+
+  function handleNext() {
+    setPage((prev) => prev + 1);
+  }
 
   if (isPending) return <ClientsTableSkeleton />;
   if (error) return <div>Error: {error.message}</div>;
@@ -67,7 +88,7 @@ function ClientsTable() {
           </thead>
           <tbody className="divide-border divide-y">
             {/* Dynamic rows */}
-            {clients?.map((client) => (
+            {data?.clients.map((client) => (
               <tr
                 key={client.id}
                 className="hover:bg-background/80 group transition-colors duration-200"
@@ -118,6 +139,35 @@ function ClientsTable() {
             ))}
           </tbody>
         </table>
+      </div>
+
+      {/* Pagination */}
+      <div className="mt-6 flex w-full items-center justify-between gap-4 text-sm">
+        <p>
+          Showing: {data.totalCount === 0 ? 0 : from}–{to} of {data.totalCount}{" "}
+          clients
+        </p>
+
+        <div className="flex items-center gap-8">
+          <ButtonLink
+            variant="secondary"
+            onClick={handlePrev}
+            disabled={page === 1 || isPlaceholderData}
+            className="font-normal"
+          >
+            <ArrowLeft className="size-3" />
+            Prev
+          </ButtonLink>
+          <ButtonLink
+            variant="secondary"
+            onClick={handleNext}
+            disabled={isPlaceholderData || page >= data.totalPages}
+            className="font-normal"
+          >
+            Next
+            <ArrowRight className="size-3" />
+          </ButtonLink>
+        </div>
       </div>
     </section>
   );

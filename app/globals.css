@@ -90,10 +90,6 @@
   --shadow-brand: var(--shadow-brand);
 }
 
-button {
-  cursor: pointer;
-}
-
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,

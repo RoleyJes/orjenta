@@ -1,15 +1,31 @@
-import { ClientUpdate, NewClient } from "@/features/clients/types";
+import {
+  ClientUpdate,
+  GetClientsParams,
+  NewClient,
+} from "@/features/clients/types";
 import { supabase } from "@/lib/supabase/client";
 
-export async function getClients() {
-  const { data: clients, error } = await supabase
+export async function getClients({ page, pageSize }: GetClientsParams) {
+  const from = (page - 1) * pageSize;
+  const to = from + pageSize - 1;
+
+  const {
+    data: clients,
+    count,
+    error,
+  } = await supabase
     .from("clients")
-    .select("*")
+    .select("*", { count: "exact" })
+    .range(from, to)
     .order("created_at", { ascending: false });
 
   if (error) throw error;
 
-  return clients;
+  return {
+    clients,
+    totalCount: count ?? 0,
+    totalPages: Math.ceil((count ?? 0) / pageSize),
+  };
 }
 
 export async function addNewClient(data: NewClient) {

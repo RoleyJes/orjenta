@@ -21,12 +21,12 @@ export function ButtonLink({
   ...props
 }: ButtonLinkProps) {
   const baseStyle =
-    "focus:ring-brand-soft inline-flex h-10 items-center justify-center gap-2 rounded-lg px-4 text-sm font-semibold transition focus:ring-4 focus:outline-none disabled:cursor-not-allowed disabled:opacity-60";
+    "focus:ring-brand-subtle inline-flex cursor-pointer h-10 items-center justify-center gap-2 rounded-lg px-4 text-sm font-semibold transition focus:ring-2 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50";
 
   const styles = {
     primary: "bg-brand text-card hover:bg-brand-hover shadow-brand",
     secondary:
-      "border border-border bg-card text-text-primary hover:bg-slate-50",
+      "border border-border bg-card text-text-primary hover:bg-background",
     ghost: "text-text-secondary hover:bg-slate-100 hover:text-text-primary",
     danger: "bg-danger-background text-danger hover:bg-red-100",
     icon: "border border-border bg-card text-text-secondary hover:bg-slate-50 hover:text-text-primary",
